@@ -40,3 +40,7 @@
 .body {
   padding: 2vh 5%;
 }
+
+.ui.card .content.custom:hover {
+  background-color: #f2f2f2;
+}
