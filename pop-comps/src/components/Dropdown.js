@@ -1,15 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Panel from "./Panel";
 
 const Dropdown = ({ label, options, value, onChange }) => {
   const [isOpen, setOpen] = useState(false);
 
+  const dropdownRef = useRef();
+
   const toggleOpen = (_e) => {
     setOpen((currentIsOpen) => !currentIsOpen);
   };
 
+  useEffect(() => {
+    const handler = (e) => {
+      if (!dropdownRef.current.contains(e.target)) {
+        setOpen(() => false);
+      }
+    };
+    document.addEventListener("click", handler, true);
+    return () => {
+      document.removeEventListener("click", handler);
+    };
+  }, []);
+
   return (
-    <div className="ui card dropdown">
+    <div className="ui card dropdown" ref={dropdownRef}>
       <div className="content" onClick={toggleOpen}>
         <div className="header">
           {value?.displayText ? `Selected: ${value.displayText}` : `${label}:`}
@@ -35,6 +49,7 @@ const Dropdown = ({ label, options, value, onChange }) => {
               {options.map((option) => {
                 return (
                   <div
+                    key={option.label}
                     className="content custom"
                     onClick={(_e) => {
                       onChange(option);
