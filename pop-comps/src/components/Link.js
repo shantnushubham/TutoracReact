@@ -18,7 +18,7 @@ const Link = ({ to, children }) => {
   }
 
   return (
-    <div class="ui button" style={styleObject} onClick={handleClick}>
+    <div className="ui button" style={styleObject} onClick={handleClick}>
       {children}
     </div>
   );
