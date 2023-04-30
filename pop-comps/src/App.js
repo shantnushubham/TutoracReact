@@ -1,17 +1,40 @@
-import { useState } from "react";
 import "./App.css";
-import Input from "./Input";
-import AccordionPage from "./pages/AccordionPage";
-import ButtonPage from "./pages/ButtonPage";
+import Link from "./components/Link";
+import Route from "./components/Route";
 import DropdownPage from "./pages/DropdownPage";
+import AccordionPage from "./pages/AccordionPage";
+
+const [DROPDOWN_LOCATION, ACCORDION_LOCATION] = ["/dropdown", "/accordion"];
 
 function App() {
-  const [testValue, setTestValue] = useState("");
-
-  const handleChange = (e) => setTestValue(() => e.target.value);
-
   return (
     <div className="body">
+      {/* <div className="nav-flex-body">
+        <div className="ui celled list">
+          <div className="item">
+            <div className="content">
+              <div className="header">
+                <Link to={DROPDOWN_LOCATION}>Dropdown</Link>
+              </div>
+            </div>
+          </div>
+          <div className="item">
+            <div className="content">
+              <div className="header">
+                <Link to={ACCORDION_LOCATION}>Accordion</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="body-content">
+          <Route path={DROPDOWN_LOCATION}>
+            <DropdownPage />
+          </Route>
+          <Route path={ACCORDION_LOCATION}>
+            <AccordionPage />
+          </Route>
+        </div>
+      </div> */}
       <DropdownPage />
     </div>
   );

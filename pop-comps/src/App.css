@@ -41,6 +41,15 @@
   padding: 2vh 5%;
 }
 
+.body-content {
+  padding-top: 1.6vh;
+}
+
+.nav-flex-body {
+  display: flex;
+  gap: 50px;
+}
+
 .ui.card .content.custom:hover {
   background-color: #f2f2f2;
 }

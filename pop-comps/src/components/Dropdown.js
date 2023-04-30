@@ -12,7 +12,7 @@ const Dropdown = ({ label, options, value, onChange }) => {
 
   useEffect(() => {
     const handler = (e) => {
-      if (!dropdownRef.current.contains(e.target)) {
+      if (!dropdownRef.current?.contains(e.target)) {
         setOpen(() => false);
       }
     };
