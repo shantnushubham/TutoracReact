@@ -1,25 +1,26 @@
-const Table = ({ data }) => {
+import { Fragment } from "react";
+
+const Table = ({ data, config, keyFunction }) => {
   return (
     <table className="ui celled table">
       <thead>
         <tr>
-          <th>Fruit</th>
-          <th>Color</th>
-          <th>Quantity</th>
+          {config.map((rowInfo) => {
+            return rowInfo.header ? (
+              <Fragment key={rowInfo.label}>{rowInfo.header()}</Fragment>
+            ) : (
+              <th key={rowInfo.label}>{rowInfo.label}</th>
+            );
+          })}
         </tr>
       </thead>
       <tbody>
         {data.map((fruit) => {
           return (
-            <tr key={fruit.name}>
-              <td>{fruit.name}</td>
-              <td>
-                <div
-                  className="color-box"
-                  style={{ background: fruit.color }}
-                ></div>
-              </td>
-              <td>{fruit.quantity}</td>
+            <tr key={keyFunction(fruit)}>
+              {config.map((rowConfig) => {
+                return <td key={rowConfig.label}>{rowConfig.render(fruit)}</td>;
+              })}
             </tr>
           );
         })}
