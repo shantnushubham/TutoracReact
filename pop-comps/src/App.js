@@ -5,6 +5,7 @@ import DropdownPage from "./pages/DropdownPage";
 import AccordionPage from "./pages/AccordionPage";
 import ModalPage from "./pages/ModalPage";
 import TablePage from "./pages/TablePage";
+import CounterPage from "./pages/CounterPage";
 
 const [DROPDOWN_LOCATION, ACCORDION_LOCATION, MODAL_LOCATION] = [
   "/dropdown",
@@ -28,6 +29,11 @@ const routes = [
     name: "Table",
     link: "/table",
     child: <TablePage />,
+  },
+  {
+    name: "Counter",
+    link: "/counter",
+    child: <CounterPage />,
   },
 ];
 

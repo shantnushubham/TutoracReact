@@ -1,22 +1,18 @@
-import { useState } from "react";
 import Table from "./Table";
+import useSort from "../hooks/useSort";
 
 const SortableTable = (props) => {
   const { config, data } = props;
 
-  const [sortOrder, setSortOrder] = useState(null);
-  const [columnToSort, setColumnToSort] = useState(null);
+  const { sortOrder, sortByColumn, sort, updatedData } = useSort(config, data);
 
-  const handleClick = (label) => {
-    if (sortOrder === null) {
-      setSortOrder("asc");
-      setColumnToSort(label);
-    } else if (sortOrder === "asc") {
-      setSortOrder("desc");
-      setColumnToSort(label);
-    } else if (sortOrder === "desc") {
-      setSortOrder(null);
-      setColumnToSort(null);
+  const showIcon = (label) => {
+    if (sortByColumn !== label) {
+      return <i className="sort down icon" />;
+    } else if (sortByColumn === label && sortOrder === "desc") {
+      return <i className="sort icon" />;
+    } else if (sortByColumn === label && sortOrder === "asc") {
+      return <i className="sort up icon" />;
     }
   };
 
@@ -31,31 +27,18 @@ const SortableTable = (props) => {
           <th
             style={{ background: "black", color: "white" }}
             onClick={() => {
-              handleClick(rowConfig.label);
+              sort(rowConfig.label);
             }}
           >
-            {rowConfig.label}
+            {rowConfig.label} {showIcon(rowConfig.label)}
           </th>
         );
       },
     };
   });
 
-  const updatedData = data;
-  if (sortOrder && columnToSort) {
-    const { sortByKey } = config.find(
-      (column) => column.label === columnToSort
-    );
-    updatedData.sort((a, b) => {
-      let valueA = sortByKey(a);
-      let valueB = sortByKey(b);
-      let weight = sortOrder === "asc" ? 1 : -1;
-      if (typeof valueA === "string") {
-        return valueA.localeCompare(valueB) * weight;
-      }
-      return (valueA - valueB) * weight;
-    });
-  }
+  // if a column has not been touched, then show sort icon
+  // if a column has been touched and is descending, then show sort icon
 
   return <Table {...props} config={updatedConfig} data={updatedData} />;
 };
